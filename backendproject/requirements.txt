@@ -1,0 +1,8 @@
+django>=3.2,<4.0
+gunicorn
+requests
+psycopg2-binary
+django-dotenv
+django-cors-headers
+django-storages
+boto3

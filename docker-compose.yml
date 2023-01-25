@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backendproject
+      dockerfile: Dockerfile
+    image: backend-project:v1
+    env_file:
+      - ./backendproject/.env
+    ports:
+      - "8000:8000"
+    command:  sh -c "chmod +x /app/migrate.sh && sh /app/migrate.sh && /app/entrypoint.sh"
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    image: postgres
+    command: -p 5432
+    env_file:
+      - ./backendproject/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - "5432"
+
+volumes:
+  postgres_data:

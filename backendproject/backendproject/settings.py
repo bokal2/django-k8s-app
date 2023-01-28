@@ -87,16 +87,17 @@ DB_HOST = os.getenv('POSTGRES_HOST')
 DB_PORT = os.getenv('POSTGRES_PORT')
 DB_IS_AVAIL = all([DB_USERNAME, DB_NAME, DB_PASSWORD, DB_HOST, DB_PORT])
 
-DB_READY = str(os.environ.get("POSTGRES_READY")) == "1"
+print("------------------------")
+print("HOST NAME: ", DB_IS_AVAIL)
 
-if DB_IS_AVAIL and DB_READY:
+if DB_IS_AVAIL:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': DB_HOST,
             'NAME': DB_NAME,
             'USER': DB_USERNAME,
             'PASSWORD': DB_PASSWORD,
-            'HOST': DB_HOST,
             'PORT': DB_PORT,
         }
     }

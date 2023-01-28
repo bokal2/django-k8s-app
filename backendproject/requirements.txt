@@ -1,7 +1,7 @@
 django>=3.2,<4.0
 gunicorn
 requests
-psycopg2-binary
+psycopg2>=2.8.6,<2.9
 django-dotenv
 django-cors-headers
 django-storages

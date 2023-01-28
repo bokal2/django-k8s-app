@@ -15,14 +15,29 @@ services:
       - postgres_db
 
   postgres_db:
-    image: postgres
-    command: -p 5432
+    container_name: postgres_db
+    image: postgres:13-alpine
+    restart: always
+    command: -p 5434
     env_file:
       - ./backendproject/.env
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data
     expose:
-      - "5432"
+      - 5434
+    ports:
+      - "5434:5434"
 
+  redis_db:
+    image: redis
+    expose:
+      - 6388
+    restart: always
+    volumes:
+      - redis_data:/data
+    entrypoint: redis-server --appendonly yes --port 6388
+    ports:
+      - "6388:6388"
 volumes:
   postgres_data:
+  redis_data:

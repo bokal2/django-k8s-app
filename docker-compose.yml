@@ -10,7 +10,7 @@ services:
       - ./backendproject/.env
     ports:
       - "8000:8000"
-    command:  sh -c "chmod +x /app/migrate.sh && sh /app/migrate.sh && /app/entrypoint.sh"
+    command:  sh -c "chmod +x /app/migrate.sh && sh /app/migrate.sh && sh /app/entrypoint.sh"
     depends_on:
       - postgres_db
 

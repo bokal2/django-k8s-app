@@ -86,9 +86,7 @@ DB_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 DB_HOST = os.getenv('POSTGRES_HOST')
 DB_PORT = os.getenv('POSTGRES_PORT')
 DB_IS_AVAIL = all([DB_USERNAME, DB_NAME, DB_PASSWORD, DB_HOST, DB_PORT])
-
-print("------------------------")
-print("HOST NAME: ", DB_IS_AVAIL)
+DB_IGNORE_SSL = os.getenv('DB_IGNORE_SSL') == 'true'
 
 if DB_IS_AVAIL:
     DATABASES = {
@@ -102,6 +100,10 @@ if DB_IS_AVAIL:
         }
     }
 
+    if not DB_IGNORE_SSL:
+        DATABASES['default']['OPTIONS'] = {
+            'sslmode': 'require'
+        }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

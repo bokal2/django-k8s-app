@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bokal-backend-deployment
+  labels:
+    app: bokal-backend-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bokal-backend-deployment
+  template:
+    metadata:
+      labels:
+        app: bokal-backend-deployment
+    spec:
+      containers:
+      - name: bokal-backend
+        image: registry.digitalocean.com/bokal-k8s-images/django-k8s:latest
+        envFrom:
+          - secretRef:
+              name: bokal-k8s-prod-env
+        env:
+          - name: PORT
+            value: "8001"
+        ports:
+        - containerPort: 8001
+      imagePullSecrets:
+        - name: bokal-k8s-images
